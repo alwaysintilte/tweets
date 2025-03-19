@@ -7,7 +7,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class TweetsApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(TweetsApplication.class, args);
+		TweetParser.parseTweets();
+		//SpringApplication.run(TweetsApplication.class, args);
 	}
 
 }

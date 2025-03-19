@@ -1,10 +1,5 @@
 package twitter.tweets;
 
-import lombok.Getter;
-
-import java.util.ArrayList;
-import java.util.List;
-
 public class Tweet {
 
     double latitude;
@@ -15,9 +10,9 @@ public class Tweet {
 
     String statePostalCode;
 
-    double sentimentNumber;
+    Double sentimentNumber;
 
-    public Tweet(double longitude, double latitude, String text,double sentimentNumber){
+    public Tweet(double longitude, double latitude, String text, Double sentimentNumber){
         this.latitude=latitude;
         this.longitude=longitude;
         this.text=text;
@@ -36,7 +31,7 @@ public class Tweet {
         return this.statePostalCode;
     }
 
-    public double getSentimentNumber() {
+    public Double getSentimentNumber() {
         return this.sentimentNumber;
     }
 

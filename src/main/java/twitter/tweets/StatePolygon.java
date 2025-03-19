@@ -1,6 +1,5 @@
 package twitter.tweets;
 
-import java.util.Date;
 import java.util.List;
 
 public class StatePolygon {

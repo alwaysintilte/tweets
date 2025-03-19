@@ -4,7 +4,6 @@ import org.locationtech.jts.geom.*;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -38,7 +37,6 @@ public class statePointChecker {
         Point point = geometryFactory.createPoint(pointCoordinate);
         if(state.getStatePolygons().size()==1){
             Polygon statePolygon=createPolygon(state.getStatePolygons().get(0));
-            System.out.println(statePolygon);
             isInside = statePolygon.contains(point);
         }
         else{
@@ -48,8 +46,20 @@ public class statePointChecker {
         return isInside;
     }
 
+    public static String findStateForPoint(double pointLongitude, double pointLatitude, Map<String,State> states) {
+        String statePostalCode=null;
+        for (Map.Entry<String, State> entry:states.entrySet()) {
+            if(ifPointIsInsideAState(pointLongitude, pointLatitude, entry.getValue())){
+                statePostalCode=entry.getKey();
+                break;
+            }
+        }
+        return statePostalCode;
+    }
+
     public static void main(String[] args) throws IOException {
         Map<String, State> states = JsonDeserializerMethods.JsonDeserializer("src/main/resources/static/states.json");
         System.out.println("Is the point inside the state? " + ifPointIsInsideAState(-117, 46, states.get("WA")));
+        System.out.println("Find the state for point " + findStateForPoint(-117, 46, states));
     }
 }

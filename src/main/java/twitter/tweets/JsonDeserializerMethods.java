@@ -1,8 +1,6 @@
 package twitter.tweets;
 
-import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.type.MapLikeType;
 
 import java.io.File;
 import java.io.IOException;
@@ -18,14 +16,9 @@ public class JsonDeserializerMethods {
             String stateAbbreviation = entry.getKey(); // Аббревиатура штата (например, "WA")
             List<List<List<Double>>> rawPolygons = entry.getValue();
             List<StatePolygon> statePolygons = new ArrayList<>();
-
-            // Обрабатываем каждый полигон
             for (List<List<Double>> polygonCoordinates : rawPolygons) {
-                // Создаем StatePolygon и добавляем его в список
                 statePolygons.add(new StatePolygon(polygonCoordinates));
             }
-
-            // Создаем объект State и добавляем его в Map
             states.put(stateAbbreviation, new State(statePolygons));
         }
         return states;

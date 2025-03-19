@@ -58,7 +58,7 @@ public class statePointChecker {
     }
 
     public static void main(String[] args) throws IOException {
-        Map<String, State> states = JsonDeserializerMethods.JsonDeserializer("src/main/resources/static/states.json");
+        Map<String, State> states = JsonMethods.JsonDeserializer("src/main/resources/static/states.json");
         System.out.println("Is the point inside the state? " + ifPointIsInsideAState(-117, 46, states.get("WA")));
         System.out.println("Find the state for point " + findStateForPoint(-117, 46, states));
     }

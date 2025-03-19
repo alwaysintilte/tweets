@@ -46,7 +46,7 @@ public class tweetAnalyzer {
     }
 
     public static void main(String[] args) throws IOException {
-        Map<String, State> states = JsonDeserializerMethods.JsonDeserializer("src/main/resources/static/states.json");
+        Map<String, State> states = JsonMethods.JsonDeserializer("src/main/resources/static/states.json");
         List<Tweet> tweets = Arrays.asList(
                 new Tweet(-118.2437, 34.0522, "Love the weather in LA!", 0.9), // California
                 new Tweet(-74.0060, 40.7128, "New York is amazing!", -0.4), // New York

@@ -6,7 +6,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.*;
 
-public class JsonDeserializerMethods {
+public class JsonMethods {
     public static Map<String,State> JsonDeserializer(String path) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
         File file = new File(path);

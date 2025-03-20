@@ -1,19 +1,34 @@
 package twitter.tweets;
 
+import java.io.BufferedReader;
 import java.io.File;
-import java.util.Arrays;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 public class TweetParser {
-    public static List<Tweet> parseTweets() {
-        File[] files = null;
-        try {
-            String data = Objects.requireNonNull(TweetParser.class.getClassLoader().getResource("Data").getPath());
-             files = new File(data).listFiles(((dir, name) -> name.endsWith(".txt")));
-        } catch (NullPointerException ignored) {
+
+    public static List<Tweet> parseFile(String filename) {
+        List<Tweet> tweets = new ArrayList<>();
+        File file = FileManager.getFile(filename);
+        if (file == null) {
+            return List.of();
         }
-        System.out.println(Arrays.toString(files));
-        return List.of();
+        try (BufferedReader br = new BufferedReader(new FileReader(file))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                String[] parts = line.split("\t");
+
+                String coordinates = parts[0].replaceAll("[\\[\\] ]", "");
+                double latitude = Double.parseDouble(coordinates.split(",")[0]);
+                double longitude = Double.parseDouble(coordinates.split(",")[0]);
+
+                tweets.add(new Tweet(latitude, longitude, parts[3], null));
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        return tweets;
     }
 }

@@ -23,6 +23,33 @@
     </style>
 </head>
 <body>
-<img src="solno.bmp" alt="Fullscreen Image">
+<img id="dynamicImage" src="solno.bmp" alt="Dynamic Image" width="300">
+<script>
+    async function changeMapOnLoad() {
+        try {
+            const response = await fetch('/getsentimentsonload');
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            const data = await response.json();
+            const url="i.webp";
+            changeMap(url, data);
+        } catch (error) {
+            console.error('Error changing image:', error);
+        }
+    }
+    async function changeMap(url, data) {
+        for (const [state, sentiment] of Object.entries(data)) {
+            console.log(`Штат: ${state}, Настроение: ${sentiment}`);
+        }
+        if (url) {
+            const imageElement = document.getElementById('dynamicImage');
+            imageElement.src = url;
+        } else {
+            console.error('Failed to fetch new image URL.');
+        }
+    }
+    window.onload = changeMapOnLoad;
+</script>
 </body>
 </html>

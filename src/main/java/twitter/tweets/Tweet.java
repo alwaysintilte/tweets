@@ -35,19 +35,18 @@ public class Tweet {
         return this.sentimentNumber;
     }
 
-    public void setLatitude(double latitude) {
-        this.latitude=latitude;
-    }
-
-    public void setLongitude(double longitude) {
-        this.longitude=longitude;
+    public String getText() {
+        return text;
     }
 
     public void setStatePostalCode(String statePostalCode) {
         this.statePostalCode=statePostalCode;
     }
 
-    public void setSentimentNumber(double sentimentNumber) {
-        this.sentimentNumber=sentimentNumber;
+    public void setSentimentNumber(Double sentimentNumber) {
+        if(sentimentNumber != null)
+        {
+            this.sentimentNumber=sentimentNumber;
+        }
     }
 }

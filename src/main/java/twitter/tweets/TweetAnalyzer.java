@@ -3,7 +3,47 @@ package twitter.tweets;
 import java.io.IOException;
 import java.util.*;
 
-public class tweetAnalyzer {
+public class TweetAnalyzer {
+
+    private static TreeMap<String, Float> sentimentDictionary;
+    public static int numOfIssue = 0;
+
+    public static void setSentimentsToTweets(List<Tweet> tweets, Map<String, Float> sentiments) {
+        sentimentDictionary = new TreeMap<>(sentiments);
+        for(Tweet tweet: tweets) {
+            tweet.setSentimentNumber(calculateSentiment(tweet.getText()));
+        }
+    }
+
+    private static Double calculateSentiment(String text) {
+        if (text == null || text.isEmpty()) {
+            return null;
+        }
+
+        String[] words = text.split("\\s+");
+        double totalSentiment = 0.0d;
+        int metWords = 0;
+
+        for (int i = 0; i < words.length; i++) { //По факту простой перебор с заглядыванием в TreeMap
+            StringBuilder phraseBuilder = new StringBuilder();
+            for (int j = i; j < Math.min(i + 4, words.length); j++) {
+                if (!phraseBuilder.isEmpty()) {
+                    phraseBuilder.append(" ");
+                }
+                phraseBuilder.append(words[j]);
+
+                String phrase = phraseBuilder.toString();
+                if (sentimentDictionary.containsKey(phrase)) {
+                    metWords++;
+                    totalSentiment += sentimentDictionary.get(phrase);
+                    i = j; // конец найденной фразы
+                    break;
+                }
+            }
+        }
+        return metWords == 0 ? null : totalSentiment;
+    }
+
     public static Map<String, List<Tweet>> groupTweetsByState(List<Tweet> tweets, Map<String,State> states) {
         Map<String, List<Tweet>> groupedTweets = new HashMap<>();
         for (Tweet tweet : tweets) {
@@ -12,12 +52,15 @@ public class tweetAnalyzer {
                 tweet.setStatePostalCode(statePostalCode);
                 groupedTweets.putIfAbsent(statePostalCode, new ArrayList<>());
                 groupedTweets.get(statePostalCode).add(tweet);
+            } else {
+                System.out.println("Ошибка присвоения штата");
+                numOfIssue++;
             }
         }
         return groupedTweets;
     }
 
-    public static Map<String, Double>  calculateAverageSentiments(Map<String, List<Tweet>> groupedTweets) {
+    public static Map<String, Double> calculateAverageSentiments(Map<String, List<Tweet>> groupedTweets) {
         Map<String, Double> averageSentiments = new HashMap<>();
         for (Map.Entry<String, List<Tweet>> entry:groupedTweets.entrySet()) {
             Double averageSentiment = null;
@@ -48,9 +91,9 @@ public class tweetAnalyzer {
     public static void main(String[] args) throws IOException {
         Map<String, State> states = JsonMethods.JsonDeserializer("src/main/resources/static/states.json");
         List<Tweet> tweets = Arrays.asList(
-                new Tweet(-118.2437, 34.0522, "Love the weather in LA!", 0.9), // California
-                new Tweet(-74.0060, 40.7128, "New York is amazing!", -0.4), // New York
-                new Tweet(-95.3698, 29.7604, "Texas BBQ is the best!", 0.1), // Texas
+                new Tweet(42.38884279, -83.33090463, "Love the weather in LA!", 0.9), // California
+                new Tweet(39.77082218, -75.88280386, "New York is amazing!", -0.4), // New York
+                new Tweet(-83.93001385, 35.95753129, "Texas BBQ is the best!", 0.1), // Texas
                 new Tweet(-80.1918, 25.7617, "Miami beach is awesome! 1", -0.8), // Florida
                 new Tweet(-85.497, 30.997536, "Miami beach is awesome! 2", -0.2), // Florida
                 new Tweet(-80.2918, 25.6617, "Miami beach is awesome! 3", 0.3), // Florida

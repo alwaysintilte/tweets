@@ -21,8 +21,8 @@ public class TweetParser {
                 String[] parts = line.split("\t");
 
                 String coordinates = parts[0].replaceAll("[\\[\\] ]", "");
-                double latitude = Double.parseDouble(coordinates.split(",")[1]);
                 double longitude = Double.parseDouble(coordinates.split(",")[0]);
+                double latitude = Double.parseDouble(coordinates.split(",")[1]);
 
                 tweets.add(new Tweet(latitude, longitude, parts[3], null));
             }

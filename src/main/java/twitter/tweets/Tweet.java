@@ -43,7 +43,10 @@ public class Tweet {
         this.statePostalCode=statePostalCode;
     }
 
-    public void setSentimentNumber(double sentimentNumber) {
-        this.sentimentNumber=sentimentNumber;
+    public void setSentimentNumber(Double sentimentNumber) {
+        if(sentimentNumber != null)
+        {
+            this.sentimentNumber=sentimentNumber;
+        }
     }
 }

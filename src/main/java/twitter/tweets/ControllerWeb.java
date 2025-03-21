@@ -9,8 +9,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static twitter.tweets.tweetAnalyzer.calculateAverageSentiments;
-import static twitter.tweets.tweetAnalyzer.groupTweetsByState;
+import static twitter.tweets.TweetAnalyzer.calculateAverageSentiments;
+import static twitter.tweets.TweetAnalyzer.groupTweetsByState;
 
 @RestController
 public class ControllerWeb {

@@ -15,7 +15,7 @@ import static twitter.tweets.TweetAnalyzer.groupTweetsByState;
 @RestController
 public class ControllerWeb {
     @GetMapping("/getsentimentsonload")
-    public Map<String, Double> getSentimentsOnLoad() throws IOException {
+    public Map<String, Double> getSentimentsOnLoad(String mapNameText) throws IOException {
         Map<String, State> states = JsonMethods.JsonDeserializer("src/main/resources/static/states.json");
         List<Tweet> tweets = Arrays.asList(
                 new Tweet(-118.2437, 34.0522, "Love the weather in LA!", 0.9), // California
@@ -29,6 +29,19 @@ public class ControllerWeb {
                 new Tweet(-155.886774, 19.258084, "Hi lol 2", null) // Hi
         );
         Map<String, List<Tweet>> groupedTweets = groupTweetsByState(tweets, states);
-        return calculateAverageSentiments(groupedTweets);
+        Double number=0.0;
+        Map<String, Double> name=new HashMap<String,Double>();
+        if(mapNameText.equals("family")){
+            number=10.0;
+        }
+        else if(mapNameText.equals("football")){
+            number=100.0;
+        }
+        else{
+            number=1000.0;
+        }
+        name.put("mapNameText",number);
+        //return calculateAverageSentiments(groupedTweets);
+        return name;
     }
 }

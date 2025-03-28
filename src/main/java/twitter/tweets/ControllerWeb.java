@@ -29,7 +29,7 @@ public class ControllerWeb {
                 new Tweet(-155.886774, 19.258084, "Hi lol 2", null) // Hi
         );
         Map<String, List<Tweet>> groupedTweets = groupTweetsByState(tweets, states);
-        Double number=0.0;
+        /*Double number=0.0;
         Map<String, Double> name=new HashMap<String,Double>();
         if(mapNameText.equals("family")){
             number=10.0;
@@ -40,8 +40,8 @@ public class ControllerWeb {
         else{
             number=1000.0;
         }
-        name.put("mapNameText",number);
-        //return calculateAverageSentiments(groupedTweets);
-        return name;
+        name.put("mapNameText",number);*/
+        return calculateAverageSentiments(groupedTweets);
+        /*return name;*/
     }
 }

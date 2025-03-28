@@ -27,12 +27,17 @@ d3.text("Data/states-data.txt").then((data) => {
     });
 });
 
-d3.text("Data/states.txt").then((data) => {
+/*d3.text("Data/states.txt").then((data) => {
     const stateColors = {};
     data.split(";").forEach(pair => {
         const [state, value] = pair.split(":");
         stateColors[state.trim()] = +value;
-    });
+    });*/
+
+fetch('/getsentimentsonload?mapNameText=cali')
+    .then(response => response.json()) // Обрабатываем данные как JSON
+        .then((data) => {
+            const stateColors = data;
 
     d3.json("libs/states-10m.json").then((us) => {
         const states = topojson.feature(us, us.objects.states);

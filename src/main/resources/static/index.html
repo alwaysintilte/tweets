@@ -1,116 +1,16 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Image Fullscreen</title>
-    <style>
-        body, html {
-            margin: 0;
-            padding: 0;
-            height: 100%;
-            width: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background-color: #000;
-        }
-        img {
-            max-width: 100%;
-            max-height: 100%;
-            object-fit: contain;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <title>карта твитов</title>
+  <script src="libs/d3.v7.min.js"></script>
+  <script src="libs/topojson.min.js"></script>
+  <script src="scripts/script.js" defer></script>
+  <link rel="stylesheet" href="styles/style.css">
 </head>
 <body>
-<img id="dynamicImage" src="solno.bmp" alt="Dynamic Image" width="300">
-<div class="choose-group">
-    <select id="mapName" onchange="sendMapName('mapName')">
-        <option value="cali">Cali</option>
-        <option value="family">Family</option>
-        <option value="football">Football</option>
-        <option value="highschool">High School</option>
-        <option value="movie">Movie</option>
-        <option value="shopping">Shopping</option>
-        <option value="snow">Snow</option>
-        <option value="texas">Texas</option>
-        <option value="weekend">Weekend</option>
-    </select>
-    <input type="text" id="mapNameText" value="cali" placeholder="cali">
+<div class="map-container">
+  <svg width="1500" height="1000"></svg>
 </div>
-<script>
-    function sendMapName(mapNameid) {
-        var mapName = getMapName(mapNameid);
-        fetch(`http://localhost:8080/getsentimentsonload?mapNameText=${mapName}`, {
-            mode: 'no-cors'
-        })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Ошибка запроса');
-            }
-            return response.text();
-        })
-        .then(data => {
-            var new_data=JSON.parse(data);
-            document.getElementById("mapNameText").value=new_data.mapNameText;
-            /*console.log(new_data.amount);
-            console.log(typeof(new_data.amount));
-            console.log(fromCurrency, toCurrency, amount, convertedamount);*/
-        })
-        .catch(error => {
-            console.log(error);
-        });
-    }
-
-
-    function getMapName(id) {
-        var mapName = document.getElementById(`${id}`);
-        mapName = mapName.options[mapName.selectedIndex].value;
-        return mapName;
-    }
-
-
-    async function changeMapOnLoad() {
-        try {
-            var mapName = "cali";
-            const response = await fetch('/getsentimentsonload?mapNameText=cali');
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-            const data = await response.json();
-            const url="i.webp";
-            changeMap(url, data);
-        } catch (error) {
-            console.error('Error changing image:', error);
-        }
-    }
-
-
-    async function changeMap(url, data) {
-        for (const [state, sentiment] of Object.entries(data)) {
-            console.log(`Штат: ${state}, Настроение: ${sentiment}`);
-        }
-        if (url) {
-            const imageElement = document.getElementById('dynamicImage');
-            imageElement.src = url;
-        } else {
-            console.error('Failed to fetch new image URL.');
-        }
-    }
-
-
-    async function sendTweetGroup(url, data) {
-        for (const [state, sentiment] of Object.entries(data)) {
-            console.log(`Штат: ${state}, Настроение: ${sentiment}`);
-        }
-        if (url) {
-            const imageElement = document.getElementById('dynamicImage');
-            imageElement.src = url;
-        } else {
-            console.error('Failed to fetch new image URL.');
-        }
-    }
-    window.onload = changeMapOnLoad;
-</script>
 </body>
 </html>

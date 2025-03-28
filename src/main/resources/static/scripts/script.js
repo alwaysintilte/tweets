@@ -16,7 +16,7 @@ const tooltip = d3.select("body").append("div")
 
 const stateData = {};
 
-d3.text("data/states-data.txt").then((data) => {
+d3.text("Data/states-data.txt").then((data) => {
     data.split("\n").forEach(line => {
         const [abbr, name, info, flag] = line.split(":");
         stateData[abbr.trim()] = {
@@ -27,7 +27,7 @@ d3.text("data/states-data.txt").then((data) => {
     });
 });
 
-d3.text("data/states.txt").then((data) => {
+d3.text("Data/states.txt").then((data) => {
     const stateColors = {};
     data.split(";").forEach(pair => {
         const [state, value] = pair.split(":");

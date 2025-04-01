@@ -27,86 +27,99 @@ d3.text("Data/states-data.txt").then((data) => {
     });
 });
 
-/*d3.text("Data/states.txt").then((data) => {
-    const stateColors = {};
-    data.split(";").forEach(pair => {
-        const [state, value] = pair.split(":");
-        stateColors[state.trim()] = +value;
-    });*/
+drawMap('cali');
 
-fetch('/getsentimentsonload?mapNameText=cali')
-    .then(response => response.json()) // Обрабатываем данные как JSON
-        .then((data) => {
-            const stateColors = data;
+function drawMap(mapNameText){
+    mapName=getSelectedIndex(mapNameText);
+    fetch(`/getsentimentsonload?mapNameText=${mapName}`)
+        .then(response => response.json()) // Обрабатываем данные как JSON
+            .then((data) => {
+                const stateColors = data;
 
-    d3.json("libs/states-10m.json").then((us) => {
-        const states = topojson.feature(us, us.objects.states);
+        d3.json("libs/states-10m.json").then((us) => {
+            const states = topojson.feature(us, us.objects.states);
 
-        svg.append("g")
-            .selectAll("path")
-            .data(states.features)
-            .join("path")
-            .attr("d", path)
-            .attr("fill", d => {
-                const stateAbbr = d.properties.name;
-                const value = stateColors[stateAbbr];
-                if (value === undefined) return "#9c9c9c";
-                return colorScale(value);
-            })
-            .attr("stroke", "#3d3d3d")
-            .attr("stroke-width", 1)
-            .on("mouseover", function(event, d) {
-                const stateAbbr = d.properties.name;
-                const fullName = stateData[stateAbbr]?.name || stateAbbr;
-                const value = stateColors[stateAbbr];
+            svg.append("g")
+                .selectAll("path")
+                .data(states.features)
+                .join("path")
+                .attr("d", path)
+                .attr("fill", d => {
+                    const stateAbbr = d.properties.name;
+                    const value = stateColors[stateAbbr];
+                    if (value === undefined) return "#9c9c9c";
+                    return colorScale(value);
+                })
+                .attr("stroke", "#3d3d3d")
+                .attr("stroke-width", 1)
+                .on("mouseover", function(event, d) {
+                    const stateAbbr = d.properties.name;
+                    const fullName = stateData[stateAbbr]?.name || stateAbbr;
+                    const value = stateColors[stateAbbr];
 
-                tooltip.style("visibility", "visible")
-                    .style("width", "auto")
-                    .style("height", "auto")
-                    .html(`
-            <strong>${fullName}</strong><br>
-            Значение: ${value !== undefined ? value : "нет данных"}
-        `);
-            })
+                    tooltip.style("visibility", "visible")
+                        .style("width", "auto")
+                        .style("height", "auto")
+                        .html(`
+                <strong>${fullName}</strong><br>
+                Значение: ${value !== undefined ? value : "нет данных"}
+            `);
+                })
 
-            .on("mousemove", function(event) {
-                tooltip.style("top", (event.pageY + 10) + "px")
-                    .style("left", (event.pageX + 10) + "px");
-            })
-            .on("mouseout", function() {
-                tooltip.style("visibility", "hidden");
-            })
-            .on("click", function(event, d) {
-                const stateAbbr = d.properties.name;
-                const fullName = stateData[stateAbbr]?.name || stateAbbr;
-                const value = stateColors[stateAbbr];
+                .on("mousemove", function(event) {
+                    tooltip.style("top", (event.pageY + 10) + "px")
+                        .style("left", (event.pageX + 10) + "px");
+                })
+                .on("mouseout", function() {
+                    tooltip.style("visibility", "hidden");
+                })
+                .on("click", function(event, d) {
+                    const stateAbbr = d.properties.name;
+                    const fullName = stateData[stateAbbr]?.name || stateAbbr;
+                    const value = stateColors[stateAbbr];
 
-                const info = stateData[stateAbbr]?.info || "нет дополнительной информации";
-                const flag = stateData[stateAbbr]?.flag;
+                    const info = stateData[stateAbbr]?.info || "нет дополнительной информации";
+                    const flag = stateData[stateAbbr]?.flag;
 
-                tooltip.style("visibility", "visible")
-                    .style("width", "300px")
-                    .style("height", "auto")
-                    .style("top", (event.pageY + 10) + "px")
-                    .style("left", (event.pageX + 10) + "px")
-                    .html(`
-            <strong>${fullName}</strong><br>
-            Значение: ${value !== undefined ? value : "нет данных"}<br>
-            ${flag ? `<img src="${flag}" alt="${fullName} Flag" style="width: 100px; height: auto; margin: 10px 0;">` : ""}
-            <p style="margin-top: 10px;">${info}</p>
-        `);
-            })
+                    tooltip.style("visibility", "visible")
+                        .style("width", "300px")
+                        .style("height", "auto")
+                        .style("top", (event.pageY + 10) + "px")
+                        .style("left", (event.pageX + 10) + "px")
+                        .html(`
+                <strong>${fullName}</strong><br>
+                Значение: ${value !== undefined ? value : "нет данных"}<br>
+                ${flag ? `<img src="${flag}" alt="${fullName} Flag" style="width: 100px; height: auto; margin: 10px 0;">` : ""}
+                <p style="margin-top: 10px;">${info}</p>
+            `);
+                })
 
 
-        svg.append("g")
-            .selectAll("text")
-            .data(states.features)
-            .join("text")
-            .attr("x", d => path.centroid(d)[0])
-            .attr("y", d => path.centroid(d)[1])
-            .attr("text-anchor", "middle")
-            .attr("font-size", "8px")
-            .attr("fill", "black")
-            .text(d => d.properties.name);
+            svg.append("g")
+                .selectAll("text")
+                .data(states.features)
+                .join("text")
+                .attr("x", d => path.centroid(d)[0])
+                .attr("y", d => path.centroid(d)[1])
+                .attr("text-anchor", "middle")
+                .attr("font-size", "8px")
+                .attr("fill", "black")
+                .text(d => d.properties.name);
+        });
     });
-});
+}
+function getSelectedIndex(id) {
+    try{
+        var currency = document.getElementById(`${id}`);
+                    currency = currency.options[currency.selectedIndex].value;
+                    return currency;
+    }
+    catch(err){
+        return id;
+    }
+    function getCurrency(id) {
+            var currency = document.getElementById(`${id}`);
+            currency = currency.options[currency.selectedIndex].value;
+            return currency;
+        }
+}

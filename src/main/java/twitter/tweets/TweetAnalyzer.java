@@ -53,7 +53,7 @@ public class TweetAnalyzer {
                 groupedTweets.putIfAbsent(statePostalCode, new ArrayList<>());
                 groupedTweets.get(statePostalCode).add(tweet);
             } else {
-                System.out.println("Ошибка присвоения штата");
+                //System.out.println("Ошибка присвоения штата");
                 numOfIssue++;
             }
         }

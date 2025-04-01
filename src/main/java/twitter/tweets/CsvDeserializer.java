@@ -21,7 +21,7 @@ public class CsvDeserializer {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        System.out.println(sentiments);
+        //System.out.println(sentiments);
         return sentiments;
     }
 

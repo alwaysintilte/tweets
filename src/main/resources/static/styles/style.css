@@ -25,3 +25,35 @@ body {
     box-shadow: 0 0 5px rgba(0,0,0,0.3);
     font-size: 12px;
 }
+
+.choose-group {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    padding: 10px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+#mapName {
+    padding: 10px;
+    font-size: 16px;
+    border: 2px solid #3d3d3d;
+    border-radius: 6px;
+    background: #f9f9f9;
+    color: #333;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+}
+
+#mapName:hover {
+    background: #e0e0e0;
+}
+
+#mapName:focus {
+    outline: none;
+    border-color: #0437F2;
+    box-shadow: 0 0 8px rgba(4, 55, 242, 0.5);
+}

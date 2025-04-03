@@ -94,7 +94,6 @@ function drawMap(mapNameText){
             `);
                 })
 
-
             svg.append("g")
                 .selectAll("text")
                 .data(states.features)
@@ -108,18 +107,14 @@ function drawMap(mapNameText){
         });
     });
 }
+
 function getSelectedIndex(id) {
     try{
-        var currency = document.getElementById(`${id}`);
-                    currency = currency.options[currency.selectedIndex].value;
-                    return currency;
+        var mapName = document.getElementById(`${id}`);
+        mapName = mapName.options[mapName.selectedIndex].value;
+        return mapName;
     }
     catch(err){
         return id;
     }
-    function getCurrency(id) {
-            var currency = document.getElementById(`${id}`);
-            currency = currency.options[currency.selectedIndex].value;
-            return currency;
-        }
 }

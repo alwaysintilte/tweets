@@ -4,15 +4,27 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
-    background-color: #f0f0f0;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #dfe9f3, #ffffff);
+    font-family: Arial, sans-serif;
+}
+
+.wrapper {
+    text-align: center;
+    width: 90%;
+}
+
+h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #333;
 }
 
 .map-container {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 100%;
+    margin-top: 20px;
 }
 
 .tooltip {
@@ -30,8 +42,8 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 20px;
-    padding: 10px;
+    gap: 10px;
+    padding: 15px;
     background: #fff;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
@@ -40,10 +52,10 @@ body {
 #mapName {
     padding: 10px;
     font-size: 16px;
-    border: 2px solid #3d3d3d;
     border-radius: 6px;
     background: #f9f9f9;
     color: #333;
+    border: 2px solid #3d3d3d;
     cursor: pointer;
     transition: all 0.3s ease-in-out;
 }
@@ -56,4 +68,11 @@ body {
     outline: none;
     border-color: #0437F2;
     box-shadow: 0 0 8px rgba(4, 55, 242, 0.5);
+}
+
+.map-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
 }

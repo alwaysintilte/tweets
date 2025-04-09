@@ -24,7 +24,7 @@ public class TweetParser {
                 double longitude = Double.parseDouble(coordinates.split(",")[0]);
                 double latitude = Double.parseDouble(coordinates.split(",")[1]);
 
-                tweets.add(new Tweet(latitude, longitude, parts[3], null));
+                tweets.add(new Tweet(latitude, longitude, TextFilter.filterText(parts[3]), null));
             }
         } catch (IOException e) {
             throw new RuntimeException(e);

@@ -2,12 +2,11 @@ package twitter.tweets;
 
 import org.locationtech.jts.geom.*;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class statePointChecker {
+public class StatePointChecker {
     public static Polygon createPolygon(StatePolygon statePolygon){
         GeometryFactory geometryFactory = new GeometryFactory();
         List<Coordinate> stateCoordinates = new ArrayList<Coordinate>();

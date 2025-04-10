@@ -34,13 +34,13 @@ body::before, body::after {
 body::before {
     background: rgba(0, 173, 239, 0.85);
     top: 15%;
-    left: 10%;
+    left: 15%;
 }
 
 body::after {
     background: rgba(255, 214, 10, 0.85);
-    bottom: 10%;
-    right: 15%;
+    bottom: 15%;
+    right: 20%;
 }
 
 .choose-group {

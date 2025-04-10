@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta charset="UTF-8">
-  <title>карта твитов</title>
+  <title>Карта твитов</title>
   <script src="libs/d3.v7.min.js"></script>
   <script src="libs/topojson.min.js"></script>
   <script src="scripts/script.js" defer></script>
@@ -12,7 +12,7 @@
 <div class="wrapper">
   <h1>КАРТА ТВИТОВ</h1>
   <div class="choose-group">
-    <label for="mapName">выберите тему:</label>
+    <label for="mapName">Выберите тему:</label>
     <select id="mapName" onchange="drawMap('mapName')">
       <option value="cali">Cali</option>
       <option value="family">Family</option>
@@ -25,8 +25,35 @@
       <option value="weekend">Weekend</option>
     </select>
   </div>
+
   <div class="map-container">
     <svg width="1500" height="1000"></svg>
+  </div>
+
+  <div class="legend">
+    <div class="legend-title"> <b>ЛЕГЕНДА</b> </div>
+    <div class="legend-item">
+      <div class="legend-color negative"></div>
+      <div>негативное мнение</div>
+    </div>
+    <div class="legend-item">
+      <div class="legend-color positive"></div>
+      <div>позитивное мнение</div>
+    </div>
+    <div class="legend-item">
+      <div class="legend-color neutral"></div>
+      <div>нейтральное мнение</div>
+    </div>
+    <div class="legend-item">
+      <div class="legend-color no-data"></div>
+      <div>нет данных</div>
+    </div>
+    <div class="gradient-bar"></div>
+    <div class="gradient-labels">
+      <span>-1</span>
+      <span>0</span>
+      <span>1</span>
+    </div>
   </div>
 </div>
 </body>

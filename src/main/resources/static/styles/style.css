@@ -1,3 +1,14 @@
+
+h1 {
+    color: rgb(41, 41, 41);
+    font-size: 40px;
+    background-color: transparent;
+    text-shadow: rgb(194, 194, 194) 4px 4px 5px;
+    text-align: center;
+    margin-top: 20px;
+}
+
+
 body {
     margin: 0;
     padding: 0;
@@ -5,40 +16,39 @@ body {
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    background: linear-gradient(135deg, #dfe9f3, #ffffff);
+    background: white;
+    overflow: hidden;
     font-family: Arial, sans-serif;
+    position: relative;
 }
 
-.wrapper {
-    text-align: center;
-    width: 90%;
-}
-
-h1 {
-    font-size: 24px;
-    margin-bottom: 20px;
-    color: #333;
-}
-
-.map-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 20px;
-}
-
-.tooltip {
+body::before, body::after {
+    content: "";
     position: absolute;
-    visibility: hidden;
-    background: #fff;
-    border: 1px solid #ccc;
-    padding: 8px;
-    border-radius: 4px;
-    box-shadow: 0 0 5px rgba(0,0,0,0.3);
-    font-size: 12px;
+    width: 550px;
+    height: 550px;
+    border-radius: 50%;
+    filter: blur(150px);
+    opacity: 0.8;
+    z-index: -1;
+}
+
+body::before {
+    background: rgba(0, 173, 239, 0.85);
+    top: 15%;
+    left: 10%;
+}
+
+body::after {
+    background: rgba(255, 214, 10, 0.85);
+    bottom: 10%;
+    right: 15%;
 }
 
 .choose-group {
+    position: absolute;
+    top: 20px;
+    right: 20px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -62,17 +72,17 @@ h1 {
 
 #mapName:hover {
     background: #e0e0e0;
+    border-color: rgba(0, 173, 239, 0.85);
 }
 
 #mapName:focus {
     outline: none;
-    border-color: #0437F2;
-    box-shadow: 0 0 8px rgba(4, 55, 242, 0.5);
+    border-color: rgba(0, 173, 239, 0.85);
+    box-shadow: 0 0 8px rgba(1, 95, 140);
 }
 
-.map-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 20px;
-}
+
+
+
+
+

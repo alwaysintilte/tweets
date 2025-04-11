@@ -12,7 +12,7 @@ public class TweetsApplication {
 
 	public static void main(String[] args) throws IOException {
 		List<Tweet> tweets = TweetParser.parseFile("snow_tweets2014.txt");
-		Map<String, State> states = JsonMethods.JsonDeserializer("src/main/resources/static/states.json");
+		Map<String, State> states = JsonMethods.JsonDeserializer("src/main/resources/Data/states.json");
 		TweetAnalyzer.setSentimentsToTweets(tweets, CsvDeserializer.getSentiments());
 
 		Map<String, List<Tweet>> groupedTweets = TweetAnalyzer.groupTweetsByState(tweets, states);

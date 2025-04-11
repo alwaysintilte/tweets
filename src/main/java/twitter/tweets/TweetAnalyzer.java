@@ -5,7 +5,6 @@ import java.util.*;
 public class TweetAnalyzer {
 
     private static Map<String, Float> sentimentDictionary;
-    public static int numOfIssue = 0;
 
     public static void setSentimentsToTweets(List<Tweet> tweets, Map<String, Float> sentiments) {
         sentimentDictionary = new HashMap<>(sentiments);
@@ -47,9 +46,6 @@ public class TweetAnalyzer {
                 tweet.setStatePostalCode(statePostalCode);
                 groupedTweets.putIfAbsent(statePostalCode, new ArrayList<>());
                 groupedTweets.get(statePostalCode).add(tweet);
-            } else {
-                //System.out.println("Ошибка присвоения штата");
-                numOfIssue++;
             }
         }
         return groupedTweets;

@@ -14,10 +14,8 @@ public class TweetsApplication {
 		List<Tweet> tweets = TweetParser.parseFile("snow_tweets2014.txt");
 		Map<String, State> states = JsonMethods.JsonDeserializer("src/main/resources/Data/states.json");
 		TweetAnalyzer.setSentimentsToTweets(tweets, CsvDeserializer.getSentiments());
-		System.out.println(tweets.size()); // А это счетчик всех твитов
 
 		Map<String, List<Tweet>> groupedTweets = TweetAnalyzer.groupTweetsByState(tweets, states);
-		System.out.println(TweetAnalyzer.numOfIssue); // добавил к классу анализатора счетчик твитов без штата
 		for (Map.Entry<String, List<Tweet>> entry : groupedTweets.entrySet()) {
 			System.out.println("State: " + entry.getKey());
 			for (Tweet tweet : entry.getValue()) {

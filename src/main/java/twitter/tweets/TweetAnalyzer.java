@@ -1,6 +1,5 @@
 package twitter.tweets;
 
-import java.io.IOException;
 import java.util.*;
 
 public class TweetAnalyzer {
@@ -24,9 +23,9 @@ public class TweetAnalyzer {
         double totalSentiment = 0.0d;
         int metWords = 0;
 
-        for (int i = 0; i < words.length; i++) { //По факту простой перебор с заглядыванием в TreeMap
+        for (int i = 0; i < words.length; i++) { // По факту простой перебор с заглядыванием в TreeMap
             StringBuilder phraseBuilder = new StringBuilder();
-            for (int j = i; j < Math.min(i + 4, words.length); j++) {
+            for (int j = i; j < Math.min(i + 4, words.length); j++) { // Собираем изначально самую большую последовательность слов
                 if (!phraseBuilder.isEmpty()) {
                     phraseBuilder.append(" ");
                 }
@@ -41,13 +40,13 @@ public class TweetAnalyzer {
                 }
             }
         }
-        return metWords == 0 ? null : totalSentiment;
+        return metWords == 0 ? null : totalSentiment/metWords;
     }
 
     public static Map<String, List<Tweet>> groupTweetsByState(List<Tweet> tweets, Map<String,State> states) {
         Map<String, List<Tweet>> groupedTweets = new HashMap<>();
         for (Tweet tweet : tweets) {
-            String statePostalCode=statePointChecker.findStateForPoint(tweet.getLongitude(), tweet.getLatitude(), states);
+            String statePostalCode= StatePointChecker.findStateForPoint(tweet.getLongitude(), tweet.getLatitude(), states);
             if (statePostalCode != null) {
                 tweet.setStatePostalCode(statePostalCode);
                 groupedTweets.putIfAbsent(statePostalCode, new ArrayList<>());

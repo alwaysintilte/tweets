@@ -5,15 +5,14 @@ import java.util.regex.Pattern;
 
 public class TextFilter {
 
-    // Метод для фильтрации текста
     public static String filterText(String text) {
         if (text == null || text.isEmpty()) {
             return "";
         }
         // Удаляем упоминания (слова, начинающиеся с @)
-        text = text.replaceAll("@\\w+", "");
-        text = text.replaceAll("#\\w+", "");
-        text = text.replaceAll("\\b(?:https?://)?(?:www\\.)?\\S+\\.\\S+\\b", "");
+        text = text.replaceAll("@\\w+", ""); // Все упоминания
+        text = text.replaceAll("#\\w+", ""); // Все хештеги
+        text = text.replaceAll("\\b(?:https?://)?(?:www\\.)?\\S+\\.\\S+\\b", ""); // Все ссылки
 
         // Оставляем только слова, начинающиеся с букв
         StringBuilder filteredText = new StringBuilder();

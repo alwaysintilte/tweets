@@ -4,11 +4,10 @@ import java.util.*;
 
 public class TweetAnalyzer {
 
-    private static TreeMap<String, Float> sentimentDictionary;
-    public static int numOfIssue = 0;
+    private static Map<String, Float> sentimentDictionary;
 
     public static void setSentimentsToTweets(List<Tweet> tweets, Map<String, Float> sentiments) {
-        sentimentDictionary = new TreeMap<>(sentiments);
+        sentimentDictionary = new HashMap<>(sentiments);
         for(Tweet tweet: tweets) {
             tweet.setSentimentNumber(calculateSentiment(tweet.getText()));
         }
@@ -23,20 +22,16 @@ public class TweetAnalyzer {
         double totalSentiment = 0.0d;
         int metWords = 0;
 
-        for (int i = 0; i < words.length; i++) { // По факту простой перебор с заглядыванием в TreeMap
-            StringBuilder phraseBuilder = new StringBuilder();
-            for (int j = i; j < Math.min(i + 4, words.length); j++) { // Собираем изначально самую большую последовательность слов
-                if (!phraseBuilder.isEmpty()) {
-                    phraseBuilder.append(" ");
-                }
-                phraseBuilder.append(words[j]);
-
-                String phrase = phraseBuilder.toString();
-                if (sentimentDictionary.containsKey(phrase)) {
-                    metWords++;
-                    totalSentiment += sentimentDictionary.get(phrase);
-                    i = j; // конец найденной фразы
-                    break;
+        for (int i = 0; i < words.length; i++) {
+            for (int phraseLength = 4; phraseLength >= 1; phraseLength--) {
+                if (i + phraseLength <= words.length) {
+                    String phrase = String.join(" ", Arrays.copyOfRange(words, i, i + phraseLength));
+                    if (sentimentDictionary.containsKey(phrase)) {
+                        metWords++;
+                        totalSentiment += sentimentDictionary.get(phrase);
+                        i += phraseLength - 1; // Перескакиваем на конец фразы
+                        break;
+                    }
                 }
             }
         }
@@ -51,9 +46,6 @@ public class TweetAnalyzer {
                 tweet.setStatePostalCode(statePostalCode);
                 groupedTweets.putIfAbsent(statePostalCode, new ArrayList<>());
                 groupedTweets.get(statePostalCode).add(tweet);
-            } else {
-                //System.out.println("Ошибка присвоения штата");
-                numOfIssue++;
             }
         }
         return groupedTweets;
